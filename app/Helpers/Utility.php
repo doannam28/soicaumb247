@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\News;
+namespace App\Helpers;
+
 use App\Models\Taxonomy;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;

@@ -9,7 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Request;
-use Utility;
+use App\Helpers\Utility;
 
 
 class TaxonomyItemController extends BaseAdminController
@@ -44,10 +44,10 @@ class TaxonomyItemController extends BaseAdminController
         $grid->column('name', __('Name'));
         $grid->column('slug', __('Slug'));
         $grid->column('order', __('Order'))->text();
-       /* $grid->column('parent_id', __('Parent'))->display(function(){
+        $grid->column('parent_id', __('Parent'))->display(function(){
            $cat = TaxonomyItem::where('id',$this->parent_id)->first();
             return isset($cat->name)?$cat->name:'';
-        });*/
+        });
         $grid->column('status', __('Status'))->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -114,8 +114,9 @@ class TaxonomyItemController extends BaseAdminController
         $form->number('order', __('Order'));
         $form->switch('status', __('Status'))->default(1);
         $form->hidden('taxonomy_id')->value($vid);
-      /*  $form->select('parent_id', __('Parent'))
-            ->options($options);*/
+        $form->select('parent_id', __('Parent'))
+            ->options($options);
+        $form->tinyEditor('content', __('Nôi dung'));
         $form->saving(function (Form $form) {
             if(empty($form->slug)){
                 $form->slug = Utility::slug($form->name, 'taxonomyitem');
