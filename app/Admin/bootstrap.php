@@ -18,4 +18,9 @@
  *
  */
 
+use App\Admin\Extensions\Form\TinyEditor;
+use App\Admin\Extensions\Form;
+
 Encore\Admin\Form::forget(['map', 'editor']);
+Form::extend('tinyEditor', TinyEditor::class);
+Form::extend('images', \App\Admin\Extensions\Form\Images::class);
