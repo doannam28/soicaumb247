@@ -49,6 +49,7 @@ class TaxonomyItemController extends BaseAdminController
             return isset($cat->name)?$cat->name:'';
         });
         $grid->column('status', __('Status'))->switch();
+        $grid->column('menu', __('Menu'))->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->model()->where('taxonomy_id', $vid);
@@ -70,6 +71,7 @@ class TaxonomyItemController extends BaseAdminController
         $show->field('name', __('Name'));
         $show->field('slug', __('Slug'));
         $show->field('status', __('Status'))->using([0 => 'Inactive', 1 => 'Active']);
+        $show->field('menu', __('Menu'))->using([0 => 'Inactive', 1 => 'Active']);
         $show->field('taxonomy_id', __('Taxonomy id'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -113,6 +115,7 @@ class TaxonomyItemController extends BaseAdminController
         $form->text('slug', __('Slug'));
         $form->number('order', __('Order'));
         $form->switch('status', __('Status'))->default(1);
+        $form->switch('menu', __('Menu'))->default(0);
         $form->hidden('taxonomy_id')->value($vid);
         $form->select('parent_id', __('Parent'))
             ->options($options);

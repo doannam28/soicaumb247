@@ -18,6 +18,6 @@ class Post extends BaseModel
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(TaxonomyItem::class);
     }
 }

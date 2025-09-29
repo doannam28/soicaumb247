@@ -29,7 +29,7 @@ class SettingsController extends AdminController
         $grid->disableCreation();
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
-        $grid->column('phone', __('Hotline'));
+        $grid->column('email', __('Email'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->actions(function ($actions) {
@@ -79,31 +79,27 @@ class SettingsController extends AdminController
         $content = isset($setting->content) ? json_decode($setting->content): '';
         $form->text('name','Tên website');
         $form->text('address', __('Địa chỉ'));
-        $form->text('phone', __('Hotline'));
-        $form->text('phone_display', __('Hiển thị hotline'));
-        $form->text('phone2', __('Hotline2'));
-        $form->text('phone2_display', __('Hiển thị hotline2'));
+        $form->text('phone', __('Zalo'));
+        $form->text('telegram', __('Telegram'));
         $form->text('email', __('Email'));
-        $form->text('facebook', __('Link fanpage'));
-        $form->text('youtube', __('Link youtube'));
-        $form->text('tiktok', __('Link tiktok'));
         $form->text('email_receive', __('Email nhận liên hệ'));
-        $form->image('logo', __('Logo'));
-        $form->image('logo_footer', __('Logo footer'));
+        $form->image('logo', __('Banner'));
         $form->image('favicon', __('Favicon'));
         $form->image('image_og', __('Ảnh show trên social'));
+        $form->tinyEditor('text1', __('Nôi dung 1'));
+        $form->tinyEditor('text2', __('Nôi dung 2'));
+        $form->tinyEditor('copyright', __('Copy right'));
+        $form->tinyEditor('textfooter', __('Text tag'));
         $form->text('site_title', __('Tiêu đề website'));
         $form->text('meta_description', __('Meta description'));
         $form->hidden('content', __('Content'));
-        $form->number('day_max', __('Số ngày tối đa'))->default($content->day_max ?? "");
-        $form->currency('price_max', 'Giá tiền tối đa')->symbol('VND')->default($content->price_max ?? "");
         $form->submitted(function (Form $form) {
             $content = [];
-            $content['day_max'] = Request::input('day_max');
-            $content['price_max'] = Request::input('price_max');
+            //$content['day_max'] = Request::input('day_max');
+            //$content['price_max'] = Request::input('price_max');
             $form->content = json_encode($content);
-            $form->ignore('day_max');
-            $form->ignore('price_max');
+            //$form->ignore('day_max');
+            //$form->ignore('price_max');
         });
         return $form;
     }

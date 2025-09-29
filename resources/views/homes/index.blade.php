@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('meta')
-    <?php $setting = Utility::setting();?>
+    <?php use App\Helpers\Utility;$setting = Utility::setting();?>
     <title>{{$setting->site_title}}</title>
     <meta name="description" content="{{$setting->meta_description}}">
     <meta property="og:title" content="{{$setting->site_title}}">

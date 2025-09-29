@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Post;
+use App\Models\TaxonomyItem;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Illuminate\Contracts\Foundation\Application;
@@ -48,12 +49,9 @@ class PostController extends BaseAdminController
             if (!$thumbnail) return '';
             return "<img src='".Storage::disk('admin')->url($thumbnail)."' style='max-width: 100px; max-height: 100px;'>";
         });
-        $grid->column('categories', __('Danh mục'))->display(function ($categories) {
-            $html = [];
-            foreach ($categories as $category){
-                $html[]= "<span class='label label-info'>{$category['name']}</span>";
-            }
-            return implode(' ', $html);
+        $grid->column('parent_id', __('Danh mục'))->display(function(){
+            $cat = TaxonomyItem::where('id',$this->parent_id)->first();
+            return isset($cat->name)?$cat->name:'';
         });
         $grid->column('status', __('Trạng thái'))->switch();
         $grid->column('created_at', __('Ngày tạo'))->display(function ($created_at) {
@@ -103,9 +101,26 @@ class PostController extends BaseAdminController
         $form->text('slug', __('Slug'));
         $form->date('date_create', __('Chọn ngày đăng'));
         $form->number('position', __('Vị trí'))->default(0);
-        $form->checkbox('categories', __('Danh mục'))->options(function (){
+       /* $form->checkbox('categories', __('Danh mục'))->options(function (){
             return \App\Models\Category::all()->pluck('name', 'id');
-        });
+        });*/
+        $cats = Taxonomyitem::orderBy('order','ASC')->get();
+        $listdatas = array();
+        foreach($cats as $k => $v){
+            $tmp['id'] = $v['id'];
+            $tmp['name'] = $v['name'];
+            $tmp['parent'] = $v['parent_id'];
+            $listdatas[$k] = $tmp;
+        }
+        $tree =array();
+        $listdatas1  = $listdatas;
+        $listree = \App\Helpers\Utility::listtree($listdatas1,0,$tree);
+        $options= [];
+        foreach ($listree as $k=>$row) {
+            $options[$row['id']] = $row['name'];
+        }
+        $form->select('parent_id', __('Danh mục'))
+            ->options($options);
         $form->image('thumbnail', __('Hình ảnh đại diện'))->rules('image|mimes:jpeg,png,jpg,gif,svg')
             ->help('<b style="color:red">(Nên upload ảnh có độ phân giải 1440x960)</b>')
             ->name(function ($file) {
