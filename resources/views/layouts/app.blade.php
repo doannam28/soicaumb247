@@ -13,16 +13,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' id='font-awesome-official-css' href='https://use.fontawesome.com/releases/v6.2.0/css/all.css' type='text/css' media='all' integrity="sha384-SOnAn/m2fVJCwnbEYgD4xzrPtvsXdElhOVvR8ND1YjB5nhGNwwf7nBQlhfAwHAZC" crossorigin="anonymous" />
     <link href="/assets/css/styles.css?v={{ env('VERSION_CSS') }}" rel="stylesheet">
-    <?php $setting = Utility::setting();?>
+    <?php $setting = App\Helpers\Utility::setting();?>
     <link rel="shortcut icon" href="{{Storage::disk('admin')->url($setting->favicon)}}">
     @stack('css')
 </head>
 <body>
 <div class="container main-container">
-    @include('frontend.layouts.header')
+    @include('layouts.header')
     @yield('content')
-    @include('frontend.layouts.footer')
+    @include('layouts.footer')
 </div>
 </body>
 <script

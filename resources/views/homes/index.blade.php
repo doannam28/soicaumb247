@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('layouts.app')
 @section('meta')
     <?php use App\Helpers\Utility;$setting = Utility::setting();?>
     <title>{{$setting->site_title}}</title>

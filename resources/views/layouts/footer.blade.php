@@ -1,6 +1,17 @@
-<?php $setting = Utility::setting();?>
+<?php $setting = App\Helpers\Utility::setting();?>
 <!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 rounded">
-    <p class="mb-1 small">© 2025 SoiCauMB247.com - All Rights Reserved</p>
-    <p class="mb-0 small">Liên hệ: soicaumb247@gmail.com</p>
+<footer>
+    <div>
+        <h3 class="header title-h3-cam">Quy định của {{$setting->name}}</h3>
+        {!! $setting->textfooter !!}
+    </div>
+    <div id="div-nq">
+        <a href="/chi-tiet/noi-quy-chinh-sach">Nội quy & chính sách</a>
+    </div>
+    <div class="div-qc">
+        <h3 class="h3-telegram">Liên hệ QC: Telegram: {{$setting->telegram}}</h3>
+        <p class="p-email">Email: {{$setting->email}}</p>
+        <div class="txt-copy">{!! $setting->copyright !!}</div>
+    </div>
+   <div class="div-tag">{!! $setting->texttag !!}</div>
 </footer>

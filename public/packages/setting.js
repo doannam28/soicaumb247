@@ -3,6 +3,8 @@ function initEditor() {
     tinymce.remove();
     tinymce.init({
         selector: '.editor',
+        valid_elements: '*[*]', // cho phép mọi thẻ + attribute
+        extended_valid_elements: 'i[class|style|aria-hidden]',
         plugins: 'image code autoresize table lists',
         toolbar: 'code| undo redo | link image | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | table ',
         min_height: 300,

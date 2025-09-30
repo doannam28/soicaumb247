@@ -88,8 +88,9 @@ class SettingsController extends AdminController
         $form->image('image_og', __('Ảnh show trên social'));
         $form->tinyEditor('text1', __('Nôi dung 1'));
         $form->tinyEditor('text2', __('Nôi dung 2'));
+        $form->tinyEditor('textfooter', __('Text footer'));
         $form->tinyEditor('copyright', __('Copy right'));
-        $form->tinyEditor('textfooter', __('Text tag'));
+        $form->tinyEditor('texttag', __('Text tag'));
         $form->text('site_title', __('Tiêu đề website'));
         $form->text('meta_description', __('Meta description'));
         $form->hidden('content', __('Content'));
