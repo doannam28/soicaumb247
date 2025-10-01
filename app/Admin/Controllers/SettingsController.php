@@ -86,6 +86,7 @@ class SettingsController extends AdminController
         $form->image('logo', __('Banner'));
         $form->image('favicon', __('Favicon'));
         $form->image('image_og', __('Ảnh show trên social'));
+        $form->image('img_soicau', __('Ảnh soi cầu'));
         $form->tinyEditor('text1', __('Nôi dung 1'));
         $form->tinyEditor('text2', __('Nôi dung 2'));
         $form->tinyEditor('textfooter', __('Text footer'));
@@ -94,13 +95,19 @@ class SettingsController extends AdminController
         $form->text('site_title', __('Tiêu đề website'));
         $form->text('meta_description', __('Meta description'));
         $form->hidden('content', __('Content'));
+        //$form->image('img_soicau', __('Img soi cầu'));
+        $form->tinyEditor('soicau', __('Soi cầu 1'))->default($content->soicau ?? "");
+        $form->tinyEditor('soicau1', __('Soi cầu 2'))->default($content->soicau1 ?? "");
+        $form->tinyEditor('text_run', __('Text chạy'))->default($content->text_run ?? "");
         $form->submitted(function (Form $form) {
             $content = [];
-            //$content['day_max'] = Request::input('day_max');
-            //$content['price_max'] = Request::input('price_max');
+            $content['soicau'] = Request::input('soicau');
+            $content['soicau1'] = Request::input('soicau1');
+            $content['text_run'] = Request::input('text_run');
             $form->content = json_encode($content);
-            //$form->ignore('day_max');
-            //$form->ignore('price_max');
+            $form->ignore('soicau');
+            $form->ignore('soicau1');
+            $form->ignore('text_run');
         });
         return $form;
     }

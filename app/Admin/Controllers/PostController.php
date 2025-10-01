@@ -2,8 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Helpers\Utility;
+use App\Models\Category;
 use App\Models\Post;
-use App\Models\TaxonomyItem;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,7 +13,6 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Utility;
 
 class PostController extends BaseAdminController
 {
@@ -50,10 +50,11 @@ class PostController extends BaseAdminController
             return "<img src='".Storage::disk('admin')->url($thumbnail)."' style='max-width: 100px; max-height: 100px;'>";
         });
         $grid->column('parent_id', __('Danh mục'))->display(function(){
-            $cat = TaxonomyItem::where('id',$this->parent_id)->first();
+            $cat = Category::where('id',$this->parent_id)->first();
             return isset($cat->name)?$cat->name:'';
         });
         $grid->column('status', __('Trạng thái'))->switch();
+        $grid->column('hot', __('Tin hot'))->switch();
         $grid->column('created_at', __('Ngày tạo'))->display(function ($created_at) {
             return date('d/m/Y H:i', strtotime($created_at));
         });
@@ -99,12 +100,12 @@ class PostController extends BaseAdminController
         });
         $form->text('title', __('Tiêu đề'))->required();
         $form->text('slug', __('Slug'));
-        $form->date('date_create', __('Chọn ngày đăng'));
+        //$form->date('date_create', __('Chọn ngày đăng'));
         $form->number('position', __('Vị trí'))->default(0);
        /* $form->checkbox('categories', __('Danh mục'))->options(function (){
             return \App\Models\Category::all()->pluck('name', 'id');
         });*/
-        $cats = Taxonomyitem::orderBy('order','ASC')->get();
+        $cats = Category::orderBy('order','ASC')->get();
         $listdatas = array();
         foreach($cats as $k => $v){
             $tmp['id'] = $v['id'];
@@ -114,7 +115,7 @@ class PostController extends BaseAdminController
         }
         $tree =array();
         $listdatas1  = $listdatas;
-        $listree = \App\Helpers\Utility::listtree($listdatas1,0,$tree);
+        $listree = Utility::listtree($listdatas1,0,$tree);
         $options= [];
         foreach ($listree as $k=>$row) {
             $options[$row['id']] = $row['name'];
@@ -122,13 +123,14 @@ class PostController extends BaseAdminController
         $form->select('parent_id', __('Danh mục'))
             ->options($options);
         $form->image('thumbnail', __('Hình ảnh đại diện'))->rules('image|mimes:jpeg,png,jpg,gif,svg')
-            ->help('<b style="color:red">(Nên upload ảnh có độ phân giải 1440x960)</b>')
+            //->help('<b style="color:red">(Nên upload ảnh có độ phân giải 1440x960)</b>')
             ->name(function ($file) {
                 return \App\Files\Storage::getFileName($file);
             });
         $form->tinyEditor('content', __('Nôi dung'));
         $form->textarea('meta', __('Meta description'));
         $form->switch('status', __('Trạng thái'))->default(1);
+        $form->switch('hot', __('Tin hot'))->default(10);
         $form->saving(function (\Encore\Admin\Form $form) {
             $request = Request::all();
             if(!isset($request["_edit_inline"]) && !empty($form->title)) {

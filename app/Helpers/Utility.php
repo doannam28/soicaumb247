@@ -132,33 +132,15 @@ class Utility {
                     $i++;
                 }
                 break;
-            case 'services':
+            case 'category':
                 $slug = Str::slug($name);
-                $obj = new \App\Models\Services();
+                $obj = new \App\Models\Category();
                 $i = 0;
                 while(1){
                     if($i == 0){
                         $check = $obj->where('slug',$slug)->count();
                     }else{
                         $check = $obj->where('slug',$slug.'-'.$i)->count();
-                    }
-                    if($check == 0 && $i!=0){
-                        return $slug.'-'.$i;
-                    }elseif($check == 0 && $i == 0){
-                        return $slug;
-                    }
-                    $i++;
-                }
-                break;
-            case 'tours':
-                $slug = Str::slug($name);
-                $obj = new \App\Models\Tour();
-                $i = 0;
-                while(1){
-                    if($i == 0){
-                        $check = $obj->where('slug',$slug)->where('id','<>',$id)->count();
-                    }else{
-                        $check = $obj->where('slug',$slug.'-'.$i)->where('id','<>',$id)->count();
                     }
                     if($check == 0 && $i!=0){
                         return $slug.'-'.$i;

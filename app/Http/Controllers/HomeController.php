@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Category;
 use App\Models\Email;
+use App\Models\Keys;
+use App\Models\Number;
 use App\Models\Page;
 use App\Models\Settings;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,23 +19,67 @@ use PHPUnit\Framework\Exception;
 
 class HomeController extends Controller
 {
+    protected function formatDateVietnamese($dateInput) {
+        // Chuyển thành timestamp
+        $timestamp = strtotime($dateInput);
 
-    const SOCIAL_ICONS = [
-        'facebook' => '/assets/images/icon-fb.png',
-        'tiktok' => '/assets/images/icon-tiktok.png',
-        'youtube' => '/assets/images/icon-yt.png',
-    ];
+        // Mảng ngày trong tuần tiếng Việt
+        $days = [
+            'Chủ nhật',
+            'Thứ hai',
+            'Thứ ba',
+            'Thứ tư',
+            'Thứ năm',
+            'Thứ sáu',
+            'Thứ bảy'
+        ];
 
+        // Lấy thứ trong tuần (0 = CN, 1 = Thứ 2, ...)
+        $dayOfWeek = date('w', $timestamp);
 
+        // Định dạng ngày theo dd/mm/YYYY
+        $formattedDate = date('d/m/Y', $timestamp);
+
+        return $days[$dayOfWeek] . ', Ngày ' . $formattedDate;
+    }
 
     /**
      * @return Factory|View|Application
      */
     public function index()
     {
-
+        $keys = Keys::where('status',1)->orderBy('id','DESC')->first();
+        $date = !empty($keys) ? $keys->date: date('d/m/Y');
+        $cat_id = 13;
+        $obj1 = Number::where('cat_id',intval($cat_id))->where('date',$date)->orderBy('giai','asc')->get();
+        $mang=array();
+        foreach ($obj1 as $row){
+            $mang[intval($row->giai)][]=$row->number;
+        }
+        $mang_dau=array();
+        $dau = Number::where('cat_id',intval($cat_id))->where('date',$date)->orderBy('duoi','asc')->get();
+        foreach ($dau as $row){
+            $mang_dau[intval(substr($row['duoi'],0,1))][]=$row->duoi;
+        }
+        $mang_duoi=array();
+        foreach ($dau as $row){
+            $mang_duoi[intval(substr($row['duoi'],1,1))][]=$row->duoi;
+        }
+        $title = $this->formatDateVietnamese($date);
+        $cats = Category::where('status', 1)
+            ->orderBy('order', 'ASC')
+            ->with(['posts' => function ($query) {
+                $query->orderBy('created_at', 'desc')->take(6);
+            }])
+            ->get();
         return view('homes.index', [
-            'social_icons' => self::SOCIAL_ICONS,
+            'title_soicau' => 'Soi Cầu Miền Bắc '.$title,
+            'title' => $title,
+            'keys' => $keys,
+            'mang' => $mang,
+            'dau' => $mang_dau,
+            'cats' => $cats,
+            'duoi' => $mang_duoi,
         ]);
     }
 }

@@ -261,9 +261,12 @@ a {
     background-color: #fff;
     margin-top: 1px;
     margin-bottom: 1px;
-    padding: 13px;
+    padding: 8px;
     border-bottom: 1px solid #d5d5d5 !important;
     list-style: none;
+}
+.list1:hover {
+    background-color: #F0F8FF;
 }
 footer{
     background-image: url(../images/nen.png);
@@ -298,4 +301,247 @@ footer{
 }
 .div-tag{
     padding:10px;
+}
+.d-soicau div{
+    margin-left: 10px;
+    padding: 10px;
+}
+.d-soicau{
+    border: 1px solid #DDD;
+    margin: 10px;
+}
+.marquee-container {
+    width: 99, 9%;
+    overflow: hidden;
+    background: #f0fff0;
+    color: red;
+    padding: 8px 0;
+    position: relative;
+    border: 1px dashed #C6E2FF;
+}
+.marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: marquee 12s linear infinite;
+    font-size: 19px;
+}
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+.icon-calendar{
+    float: right;
+    font-size: 30px;
+    padding: 10px;
+    color: #43BFC7;
+    margin-top: -30px;
+}
+.chotsoform h2 {
+    font-size: 20px;
+    padding: 15px 15px 5px 15px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.chotsoform .kqxshomnay {
+    text-align: center;
+}
+.tbl-ketquaxoso ul {
+    margin-bottom: 0px;
+    list-style: none;
+    display: contents;
+}
+.tbl-ketquaxoso {
+    padding: 10px;
+}
+.tbl-ketquaxoso .mainkqxs {
+    border: 3px solid #43BFC7 !important;
+}
+.tbl-ketquaxoso .table .th_title {
+    text-align: center;
+    vertical-align: middle;
+}
+.tbl-ketquaxoso .table .ul_ketqua li {
+    float: left;
+    padding: 7px 0;
+    text-align: center;
+    border-right: 1px solid #d9d9d9;
+    font-size: 20px;
+    height: 41px;
+}
+.tbl-ketquaxoso .table>tbody>tr>th {
+    padding: 0px;
+}
+
+.tbl-ketquaxoso .table .ul_ketqua > .lv {
+    width: 100%;
+    font-size: 15px;
+    height: 35px !important;
+    color: #0358a8 !important;
+}
+.tr_db li {
+    font-size: 30px !important;
+}
+.lv img {
+    height: 15px;
+}
+
+
+.wgdb {
+    width: 100%;
+}
+.wg1 {
+    width: 100%;
+}
+.wg2 {
+    width: 50%;
+}
+
+.wg3 {
+    width: 33.333%;
+}
+.wg4 {
+    width: 25%;
+}
+.wg5 {
+    width: 33.333%;
+}
+.wg6 {
+    width: 33.333%;
+}
+.wg7 {
+    width: 25%;
+}
+
+.tr_db {
+    color: #FF0000;
+}
+
+.arrow_table thead th {
+    border-right: 1px solid #ddd;
+    background: #43BFC7 !important;
+    color: #FFF;
+    padding: 8px !important;
+}
+
+.arrow_table thead .thdau {
+    width: 15%;
+}
+
+.arrow_table table>tbody>tr>td {
+    padding: 7px 3px;
+    line-height: inherit;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.arrow_table .number_dau_duoi {
+    color: red !important;
+}
+
+.tbl_dau tr td.number_dau_duoi {
+    border: 1px solid #b1afaf;
+    text-align: center;
+    padding: 11px 3px;
+}
+.tbl_dau tr td {
+    border: 1px solid #b1afaf;
+    text-align: left;
+    padding: 15px;
+    vertical-align: middle !important;
+}
+.tab {
+    display: inline-block;
+    cursor: pointer;
+    background: #3F51B5;
+    padding: 5px;
+    border-radius: 5px;
+    color: #FFF;
+}.tab.active {
+     font-weight: bold;
+     color: yellow;
+ }
+.trentablelotop {
+    padding: 20px 10px 0px 10px;
+}
+.tab.active {
+    font-weight: bold;
+    color: yellow;
+}
+.tab {
+    display: inline-block;
+    cursor: pointer;
+    background: #3F51B5;
+    padding: 5px;
+    border-radius: 5px;
+    color: #FFF;
+}
+.content-lotop {
+    padding: 10px 0;
+}
+.top2-trend {
+    color: blue;
+}
+.top2-34 {
+    font-size: 34px;
+}
+.top2-trend {
+    display: inline-block;
+    margin-right: 5px;
+    color: #555;
+    position: relative;
+    padding: 0 3px;
+}
+.top2-31 {
+    font-size: 31px;
+}
+.top2-28 {
+    font-size: 28px;
+}
+.trendholder .father {
+    font-weight: bold;
+    color: red;
+}
+.top2-trend span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 13px;
+    width: 13px;
+    border-radius: 99px;
+    background-color: Green;
+    color: white;
+    font-weight: bolder;
+    font-size: 10px;
+    position: absolute;
+    right: -7px;
+    opacity: 0.6;
+}
+.top2-24 {
+    font-size: 24px;
+}
+.top2-19 {
+    font-size: 19px;
+}
+#fetch-data-btn {
+    border: 0;
+    background: #DDD;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#section_banglotop{
+    margin-bottom: 20px;
+}
+.note-toplo {
+    font-size: 12px;
+    color: Gray;
+    padding: 10px 0;
+    display: block;
+}
+.div-cat{
+    margin: 8px 0px;
+}
+div.list1:hover a {
+    color: red;
 }

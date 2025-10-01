@@ -36,15 +36,15 @@ if ($html_content !== false) {
         } else {
             $span_class .= ' top2-19';
         }
-        
+
         // Kiểm tra xem <a> có chứa thẻ <span> con hay không
         if ($a->find('span', 0)) {
             $span_class .= ' father';
         }
-    
+
         // Tạo thẻ <span> mới với class đã được xác định
         $span = '<span class="' . $span_class . '">' . $a->innertext . '</span>';
-    
+
         $a->outertext = $span;
         $count++;
     }
@@ -58,9 +58,9 @@ if ($html_content !== false) {
             foreach ($contentbox->find('div[style="display:block; padding-top:5px"]') as $div) {
                 $div->outertext = '';
             }
-            
-            
-            
+
+
+
             // Thêm nội dung của mỗi phần tử "contentbox" vào chuỗi kết quả
             $result .= $contentbox->outertext;
         }

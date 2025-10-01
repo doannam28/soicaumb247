@@ -18,5 +18,11 @@ Route::group([
     $router->resource('taxonomy-items', TaxonomyItemController::class);
     $router->resource('posts', PostController::class);
     $router->resource('settings', SettingsController::class);
+    $router->resource('numbers', \App\Admin\Controllers\NumberController::class);
+    $router->resource('category', \App\Admin\Controllers\CategoryController::class);
+    $router->resource('keys', \App\Admin\Controllers\KeysController::class);
+    $router->resource('soicaus', \App\Admin\Controllers\SoicauController::class);
+    $router->resource('menus', \App\Admin\Controllers\MenuController::class);
+    $router->get('get_kqxs', [\App\Admin\Controllers\KetquaController::class, 'get'])->name('get');
     $router->get('/', 'HomeController@index')->name('home');
 });
