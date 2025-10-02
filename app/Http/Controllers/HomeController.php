@@ -8,7 +8,9 @@ use App\Models\Email;
 use App\Models\Keys;
 use App\Models\Number;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\Settings;
+use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -80,6 +82,47 @@ class HomeController extends Controller
             'dau' => $mang_dau,
             'cats' => $cats,
             'duoi' => $mang_duoi,
+        ]);
+    }
+    public function category($slug='')
+    {
+        $cat = Category::where('slug', $slug)->firstOrFail();
+        $posts = Post::where('parent_id',$cat->id)->orderBy('position','ASC')->orderBy('updated_at','DESC')->paginate(10);
+        return view('homes.category', [
+            'cat' => $cat,
+            'posts' => $posts,
+        ]);
+    }
+    public function tag($slug='')
+    {
+        $cat = Tag::where('slug', $slug)->firstOrFail();
+
+        $posts = $cat->posts()
+            ->orderBy('position', 'ASC')
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(10); // phân trang 10 bài / trang
+
+        return view('homes.tag', [
+            'cat' => $cat,
+            'posts' => $posts,
+        ]);
+    }
+    public function page($slug='')
+    {
+        $cat = Page::where('slug', $slug)->firstOrFail();
+        return view('homes.page', [
+            'cat' => $cat,
+        ]);
+    }
+    public function detail($slug='')
+    {
+        $post = Post::where('slug', $slug)->with('tags')->firstOrFail();
+        $cat = Category::where('id', $post->parent_id)->firstOrFail();
+        $posts = Post::where('parent_id',$post->parent_id)->where('id','<>',$post->id)->orderBy('position','ASC')->orderBy('updated_at','DESC')->limit(5)->get();
+        return view('homes.detail', [
+            'cat' => $cat,
+            'post' => $post,
+            'posts' => $posts,
         ]);
     }
 }

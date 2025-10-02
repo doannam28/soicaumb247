@@ -6,7 +6,7 @@
         {!! $setting->textfooter !!}
     </div>
     <div id="div-nq">
-        <a href="/chi-tiet/noi-quy-chinh-sach">Nội quy & chính sách</a>
+        <a href="/noi-qui-va-dieu-khoan">Nội quy & chính sách</a>
     </div>
     <div class="div-qc">
         <h3 class="h3-telegram">Liên hệ QC: Telegram: {{$setting->telegram}}</h3>

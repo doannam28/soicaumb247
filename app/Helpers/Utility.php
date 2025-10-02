@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\Menu;
+use App\Models\Page;
 use App\Models\Taxonomy;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -33,8 +35,25 @@ class Utility {
         }
         return $tree;
     }
-    public static function getMenus($parent = null){
-        return \App\Models\Menus::where('parent_id',$parent)->where('status',1)->orderBy('order','ASC')->get();
+    public static function getMenus(){
+        $menus = Menu::where('status', 1)
+            ->where(function ($q) {
+                $q->where('parent_id', 0)
+                    ->orWhereNull('parent_id');
+            })
+            ->orderBy('order', 'ASC')
+            ->get();
+        foreach ($menus as $row){
+            $row->subs = Menu::where('parent_id',$row->id)->where('status',1)->orderBy('order','ASC')->get();
+        }
+        return $menus;
+    }
+
+    public static function getPages()
+    {
+        return Page::where('status', 1)->where('menu', 1)
+            ->orderBy('order', 'ASC')
+            ->get();
     }
 
     public static function setting()
@@ -117,6 +136,42 @@ class Utility {
             case 'post':
                 $slug = Str::slug($name);
                 $obj = new \App\Models\Post();
+                $i = 0;
+                while(1){
+                    if($i == 0){
+                        $check = $obj->where('slug',$slug)->where('id','<>',$id)->count();
+                    }else{
+                        $check = $obj->where('slug',$slug.'-'.$i)->where('id','<>',$id)->count();
+                    }
+                    if($check == 0 && $i!=0){
+                        return $slug.'-'.$i;
+                    }elseif($check == 0 && $i == 0){
+                        return $slug;
+                    }
+                    $i++;
+                }
+                break;
+            case 'page':
+                $slug = Str::slug($name);
+                $obj = new \App\Models\Page();
+                $i = 0;
+                while(1){
+                    if($i == 0){
+                        $check = $obj->where('slug',$slug)->where('id','<>',$id)->count();
+                    }else{
+                        $check = $obj->where('slug',$slug.'-'.$i)->where('id','<>',$id)->count();
+                    }
+                    if($check == 0 && $i!=0){
+                        return $slug.'-'.$i;
+                    }elseif($check == 0 && $i == 0){
+                        return $slug;
+                    }
+                    $i++;
+                }
+                break;
+            case 'tag':
+                $slug = Str::slug($name);
+                $obj = new \App\Models\Tag();
                 $i = 0;
                 while(1){
                     if($i == 0){

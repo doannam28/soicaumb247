@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -12,14 +12,14 @@ use App\Helpers\Utility;
 use Illuminate\Support\Facades\Storage;
 
 
-class CategoryController extends BaseAdminController
+class TagController extends BaseAdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Danh mục tin';
+    protected $title = 'Từ khóa';
 
     /**
      * Make a grid builder.
@@ -28,23 +28,14 @@ class CategoryController extends BaseAdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Category());
+        $grid = new Grid(new Tag());
         // Sắp xếp mặc định theo ID giảm dần
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
         $grid->column('slug', __('Slug'));
         $grid->column('order', __('Order'))->editable()->sortable();
-        $grid->column('icon', __('Ảnh icon'))->display(function ($thumbnail) {
-            if (!$thumbnail) return '';
-            return "<img src='".Storage::disk('admin')->url($thumbnail)."' style='max-width: 100px; max-height: 100px;'>";
-        });
-       /* $grid->column('parent_id', __('Parent'))->display(function(){
-           $cat = Category::where('id',$this->parent_id)->first();
-            return isset($cat->name)?$cat->name:'';
-        });*/
         $grid->column('status', __('Status'))->switch();
-        $grid->column('menu', __('Menu'))->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         return $grid;
@@ -58,7 +49,7 @@ class CategoryController extends BaseAdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Category::findOrFail($id));
+        $show = new Show(Tag::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
@@ -79,8 +70,7 @@ class CategoryController extends BaseAdminController
      */
     protected function form()
     {
-        $uri = explode('/',Request::path());
-        $cats = Category::orderBy('order','ASC')->get();
+        $cats = Tag::orderBy('order','ASC')->get();
         $listdatas = array();
         foreach($cats as $k => $v){
             $tmp['id'] = $v['id'];
@@ -95,21 +85,16 @@ class CategoryController extends BaseAdminController
         foreach ($listree as $k=>$row) {
             $options[$row['id']] = $row['name'];
         }
-        $form = new Form(new Category());
+        $form = new Form(new Tag());
         $form->text('name', __('Name'));
         $form->text('slug', __('Slug'));
         $form->number('order', __('Order'));
         $form->switch('status', __('Status'))->default(1);
-        $form->image('icon', __('Hình ảnh icon'))->rules('image|mimes:jpeg,png,jpg,gif,svg,webp');
         $form->image('image_og', __('Og image'))->rules('image|mimes:jpeg,png,jpg,gif,svg,webp');
         $form->textarea('meta_description', __('Meta description'));
-        //$form->switch('menu', __('Menu'))->default(0);
-       /* $form->select('parent_id', __('Parent'))
-            ->options($options);*/
-        $form->tinyEditor('content', __('Nôi dung'));
         $form->saving(function (Form $form) {
             if(empty($form->slug)){
-                $form->slug = Utility::slug($form->name, 'category');
+                $form->slug = Utility::slug($form->name, 'tag');
             }
         });
         return $form;

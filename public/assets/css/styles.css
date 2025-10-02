@@ -545,3 +545,117 @@ footer{
 div.list1:hover a {
     color: red;
 }
+#breadcrumbs, .bmenu {
+    background: #778899;
+    color: #fff;
+    font-size: 13px;
+    padding: 10px;
+    font-weight: bold;
+}
+#breadcrumbs a {
+    color: #fff;
+}
+#content-new{
+    background-color: #fff;
+    color: #333333;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 8px;
+    border: 1px solid #d5d5d5;
+}
+.info h1{
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+.info {
+    background-color: #f2f6f8;
+    padding: 8px;
+    border-bottom: 0px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+a {
+    text-decoration: none;
+    color: #0033FF;
+    transition: border .25s linear, color .25s linear, background-color .25s linear;
+}
+a:focus, a:hover {
+    color: red;
+    text-decoration: none;
+}
+.btn-prev svg, .next-disable svg{
+    rotate: 180deg;
+}
+.pagination svg{
+    width: 22px;
+    height: 22px;
+}
+.page-link:focus{
+    box-shadow: none !important;
+}
+a.page-link:hover{
+    background: #BB2C26;
+    color: white;
+}
+a.page-link{
+    color: black;
+    display: flex;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #B3B3B3;
+    background: none;
+}
+.no-border:hover{
+    border: none !important;
+    background: none !important;
+}
+.no-border img {
+    border: none !important;
+    width: 55px;
+    height: 55px;
+}
+.no-border{
+    border: none !important;
+}
+
+.page-link{
+    border: none;
+
+}
+.page-item{
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active>.page-link, .page-link.active{
+    border-radius: 28px;
+    background: #BB2C26;
+    color: white;
+    display: flex;
+    width: 28px;
+    height: 28px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.disabled>.page-link, .page-link.disabled{
+    background: none !important;
+}
+.dudoanxs {
+    font-size: 20px !important;
+    color: red;
+    text-align: center;
+    padding: 10px !important;
+}
+#div-tags{
+    padding: 10px;
+    background: #FFF;
+    border-top: 0px solid #E4E4E4;
+}

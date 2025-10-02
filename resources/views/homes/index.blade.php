@@ -13,6 +13,7 @@
 @endsection
 @section('content')
     <section id="body-content">
+        <div class="khungvien"><h1><span class="chukhungvien">Soi Cầu MB 247 Chính Xác Nhất</span></h1></div>
         <div class="list1">
             {!! $setting->text1 !!}
         </div>
