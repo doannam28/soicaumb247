@@ -1,10 +1,6 @@
 <?php $setting = App\Helpers\Utility::setting();?>
 <!-- Footer -->
 <footer>
-    <div>
-        <h3 class="header title-h3-cam">Quy định của {{$setting->name}}</h3>
-        {!! $setting->textfooter !!}
-    </div>
     <div id="div-nq">
         <a href="/noi-qui-va-dieu-khoan">Nội quy & chính sách</a>
     </div>

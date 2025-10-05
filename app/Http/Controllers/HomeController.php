@@ -125,4 +125,47 @@ class HomeController extends Controller
             'posts' => $posts,
         ]);
     }
+    public function ketqua()
+    {
+        $request = Request::all();
+        //KET QUA XO SO
+        //Thong ke dau
+        $mang_dau=array();
+        $obj = new Number();
+        $cat_id = 13;
+        if(isset($request['date'])){
+            $date = $request['date'];
+        }else{
+            $obj2 = $obj->where('cat_id',intval($cat_id))->orderBy('date','desc')->first();
+            $date = isset($obj2->date) ? $obj2->date : date('Y-m-d');
+        }
+        $kyhieu =new Keys();
+        $kyhieu = $kyhieu->where('cat_id',intval($cat_id))->where('date',$date)->first();
+        $obj1 = $obj->where('cat_id',intval($cat_id))->where('date',$date)->orderBy('giai','asc')->get();
+        $mang=array();
+        foreach ($obj1 as $row){
+            $mang[intval($row->giai)][]=$row->number;
+        }
+        $dau = $obj->where('cat_id',intval($cat_id))->where('date',$date)->orderBy('duoi','asc')->get();
+
+        foreach ($dau as $row){
+            $mang_dau[intval(substr($row['duoi'],0,1))][]=$row->duoi;
+        }
+
+        //Thong ke  duoi
+        $mang_duoi=array();
+        foreach ($dau as $row){
+            $mang_duoi[intval(substr($row['duoi'],1,1))][]=$row->duoi;
+        }
+        $title = 'KẾT QUẢ XỔ SỐ Miền Bắc (Hà Nội) NGÀY '.date('d-m-Y',strtotime($date));
+        $list_date = Number::where('cat_id',intval($cat_id))->where('giai',0)->orderBy('date','DESC')->get();
+        return view('homes.ketqua', [
+            'title' => $title,
+            'mang' => $mang,
+            'kyhieu' => $kyhieu,
+            'dau' => $mang_dau,
+            'duoi' => $mang_duoi,
+            'list_date' => $list_date,
+        ]);
+    }
 }

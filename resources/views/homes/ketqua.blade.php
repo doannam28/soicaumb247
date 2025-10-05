@@ -12,42 +12,39 @@
     <meta property="og:image" content="{{Storage::disk('admin')->url($setting->image_og)}}"/>
 @endsection
 @section('content')
-    <section id="body-content">
-        <div class="khungvien"><h1><span class="chukhungvien">Soi Cầu MB 247 Chính Xác Nhất</span></h1></div>
-        <div class="list1">
-            {!! $setting->text1 !!}
-        </div>
-        <h3 class="header title-h3-cam">{{$title_soicau}}</h3>
-        <div class="list1">
-            {!! $setting->text2 !!}
-        </div>
-        <div class="d-flex d-soicau">
-            <img src="{{Storage::disk('admin')->url($setting->img_soicau)}}" alt="soi cầu loto">
-            <div>
-                {!! $content->soicau !!}
-            </div>
-        </div>
-        <div class="d-flex d-soicau justify-content-end">
-            <div>
-                {!! $content->soicau1 !!}
-            </div>
-            <img src="{{Storage::disk('admin')->url($setting->img_soicau)}}" alt="soi cầu loto">
-        </div>
-        <div class="marquee-container">
-            {!! $content->text_run !!}
-        </div>
-    </section>
     <section id="section_kq">
-        <div class="chotsoform">
-            <h3 class="header title-h3-cam"> Kết quả xổ số miền Bắc mới nhất</h3>
-            <div class="kqxshomnay">
-                <h2>KẾT QUẢ XỔ SỐ MIỀN BẮC</h2>
-                <!--KQXS-->
-                <span style="font-size: 15px"><font color="#e00000">{{$title}}</font></span>
-                <a href="/ket-qua">
-                    <i class="far fa-calendar-alt icon-calendar"></i>
-                </a>
+        <header style="padding-top: 30px;" class="page-header-news">
+            <h1 class="page-title"><span>{{$title}}</span></h1>
+            <div class="text-center star-border"></div>
+        </header>
+        <form id="form-ketqua" method="GET" action="">
+            <div class="row">
+              <div class="col-sm-3">
+                   {{-- <div class="form-group">
+                        <label class="col-form-label" for="continent">Chọn tỉnh/Tp</label>
+                        <select class="form-control" id="continent" name="tinh" onchange="countryChange(this);">
+                            <option selected="selected" value="empty">---</option>
+                            <option value="mien-bac">Miền Bắc</option>
+                        </select>
+                    </div>--}}
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="country">Chọn ngày</label>
+                        <select class="form-control" id="country" name="date">
+                            <option selected="selected" value="">---</option>
+                            <?php foreach ($list_date as $row){?>
+                            <option
+                                <?php if (isset($date) && $date == $row->date) echo 'selected="selected"'?> value="{{$row->date}}">{{date('d/m/Y',strtotime($row->date))}}</option><?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div style="padding-top: 28px;" class="col-sm-4">
+                    <input class="btn btn-danger btn-lg" type="submit" value="Xem kết quả">
+                </div>
             </div>
+        </form>
+        <div class="chotsoform">
             <div class="tbl-ketquaxoso">
                 <table width="100%" cellspacing="0" cellpadding="0" border="0"
                        class="table table-bordered table-striped mainkqxs">
@@ -199,102 +196,6 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section id="section_banglotop">
-        <h3 class="header title-h3-cam">Bảng lô top Rồng Bạch Kim</h3>
-        <div class="trentablelotop">
-            <div class="tab active" id="today-tab">Ngày hôm nay</div>
-            <div class="tab" id="yesterday-tab">Ngày hôm qua</div>
-            <div class="tab" id="nextyesterday-tab">Ngày hôm kia</div>
-
-            <div class="content-lotop" id="tab-content"><style>
-                    .top2-trend {
-                        color: blue;
-                    }
-                </style>
-                <div class="contentbox"><div class="contentbox_header"><div style="color:#3E3E3E">Bảng lô top ngày 01/10/2025</div></div><div class="contentbox_body"><div><div class="trendholder" rel="2025-10-01"><span class="top2-trend top2-34">81</span><span class="top2-trend top2-34">82</span><span class="top2-trend top2-34">76</span><span class="top2-trend top2-31">88</span><span class="top2-trend top2-31">96</span><span class="top2-trend top2-31">68</span><span class="top2-trend top2-31">73</span><span class="top2-trend top2-31">10</span><span class="top2-trend top2-31">18</span><span class="top2-trend top2-31">28</span><span class="top2-trend top2-31">89</span><span class="top2-trend top2-31">46</span><span class="top2-trend top2-31">57</span><span class="top2-trend top2-28">94</span><span class="top2-trend top2-28">01</span><span class="top2-trend top2-28">09</span><span class="top2-trend top2-28">37</span><span class="top2-trend top2-28">45</span><span class="top2-trend top2-28">80</span><span class="top2-trend top2-28">39</span></div></div><div style="clear:both"></div></div></div></div>
-            <button id="fetch-data-btn">Xem đầy đủ</button>
-            <p class="note-toplo" style="text-align: justify;"><b>Bảng Lô Top</b> là nơi thống kê kết quả dự đoán loto có khả năng về nhiều nhất được sắp xếp từ cao xuống thấp trong hôm nay nhằm mục đích tham khảo.</p>
-            <script type="text/javascript">
-                let useTrendLimit = false; // Biến để theo dõi trạng thái sử dụng trend limit
-
-                // Function to fetch data based on selected tab
-                function fetchData(url) {
-                    fetch('/' + url)
-                        .then(response => response.text())
-                        .then(data => {
-                            document.getElementById('tab-content').innerHTML = data;
-                        })
-                        .catch(error => console.error('Error fetching data:', error));
-                }
-
-                // Function to switch tabs
-                function switchTab(tabId) {
-                    // Reset active class for all tabs
-                    document.querySelectorAll('.tab').forEach(tab => {
-                        tab.classList.remove('active');
-                    });
-
-                    // Activate the selected tab
-                    document.getElementById(tabId).classList.add('active');
-
-                    // Fetch data based on selected tab
-                    if (tabId === 'today-tab') {
-                        fetchData('data-today.php' + (useTrendLimit ? '?trendlimit=100' : ''));
-                    } else if (tabId === 'yesterday-tab') {
-                        fetchData('data-yesterday.php' + (useTrendLimit ? '?trendlimit=100' : ''));
-                    }
-                    else if (tabId === 'nextyesterday-tab') {
-                        fetchData('data-nextyesterday.php' + (useTrendLimit ? '?trendlimit=100' : ''));
-                    }
-                }
-
-                // Initial load: Fetch data for "Ngày hôm nay" by default
-                switchTab('today-tab');
-
-                // Add click event listener to "Fetch Data with Trend Limit" button
-                document.getElementById('fetch-data-btn').addEventListener('click', function() {
-                    useTrendLimit = !useTrendLimit; // Đảo ngược trạng thái sử dụng trend limit
-                    // Fetch data with trend limit
-                    switchTab(document.querySelector('.tab.active').id);
-                });
-
-                // Add click event listeners to tabs
-                document.getElementById('today-tab').addEventListener('click', function() {
-                    switchTab('today-tab');
-                });
-
-                document.getElementById('yesterday-tab').addEventListener('click', function() {
-                    switchTab('yesterday-tab');
-                });
-
-                document.getElementById('nextyesterday-tab').addEventListener('click', function() {
-                    switchTab('nextyesterday-tab');
-                });
-            </script>
-        </div>
-    </section>
-    <section id="section-post">
-        @foreach($cats as $row)
-        <div class="div-cat">
-            <h3 class="header title-h3-cam">{{$row->name}}</h3>
-            @foreach($row->posts as $post)
-                <div class="list1">
-                    <?php if(isset($row->icon) && $row->icon!='')?>
-                    <img src="{{Storage::disk('admin')->url($row->icon)}}" alt="dự đoán xsmb 247" width="20" height="20">&nbsp;
-                    <a href="chi-tiet/{{$post->slug}}" title="{{$post->title}}">{{$post->title}}
-                       <?php if($post->hot == 1) {?>
-                        <img src="assets/images/HOT.gif">
-                        <?php } ?>
-                    </a>
-                </div>
-            @endforeach
-        </div>
-        @endforeach
-    </section>
-    <section>
-        <h3 class="header title-h3-cam">Quy định của {{$setting->name}}</h3>
-        {!! $setting->textfooter !!}
     </section>
 @stop
 @push('js')
