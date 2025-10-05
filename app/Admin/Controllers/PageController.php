@@ -95,7 +95,7 @@ class PageController extends BaseAdminController
         });
         $form->text('title', __('Tiêu đề'))->required();
         $form->text('slug', __('Link'));
-        $form->text('name', __('Label'));
+        //$form->text('name', __('Label'));
         $form->text('title_detail', __('Tiêu đề trang chi tiết'));
         $form->number('order', __('Vị trí'))->default(0);
         $form->image('image_og', __('Og image'))->rules('image|mimes:jpeg,png,jpg,gif,svg,webp');

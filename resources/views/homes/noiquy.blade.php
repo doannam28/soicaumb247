@@ -2,6 +2,9 @@
 @section('meta')
     <?php use App\Helpers\Utility;$setting = Utility::setting();
     $content = isset($setting->content) ? json_decode($setting->content) : '';
+    echo "<pre>";
+    print_r($content);
+    echo "</pre>";die;
     ?>
     <title>{{$cat->name}}</title>
     <meta name="description" content="{{$cat->meta_description}}">
@@ -14,17 +17,15 @@
 @section('content')
     <section id="body-content">
         <div id="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
-            <span typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">Trang chủ</a></span> › <span typeof="v:Breadcrumb"><span class="breadcrumb_last" property="v:title">{{$cat->name}}</span></span></div>
-       <?php foreach ($posts as $row) {?>
-           <div class="list1"> <span style="color: #EE0000;"> ✪ </span> &nbsp;
-               <a href="/{{$row->category->slug??'bai-viet'}}/{{$row->slug}}" title="{{$row->title}}"> {{$row->title}}</a>
-               <?php if($row->hot == 1){?>
-               <img src="/assets/images/HOT.gif">
-               <?php }?>
-           </div>
-        <?php } ?>
-        <div id="div-pagination-new" class="col-12 d-flex justify-content-center">
-            {{$posts->links('homes.pagination')}}
+            <span typeof="v:Breadcrumb"><a href="/" rel="v:url" property="v:title">Trang chủ</a></span>
+            › <span typeof="v:Breadcrumb"><span class="breadcrumb_last" property="v:title">{{$title}}</span>
+            </span>
+        </div>
+        <div class="info">
+            <h1><a href="/noi-qui-va-dieu-khoan" rel="bookmark">{{$title}}</a></h1>
+        </div>
+        <div id="content-new">
+            {!! $content->soicau !!}
         </div>
     </section>
 @stop

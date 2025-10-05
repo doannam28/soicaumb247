@@ -32,6 +32,6 @@
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
 <script src="/assets/libraries//bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/soicaumb247.js"></script>
+<script src="/assets/js/soicaumb247.js?v={{ env('VERSION_JS') }}"></script>
 @stack('js')
 </html>

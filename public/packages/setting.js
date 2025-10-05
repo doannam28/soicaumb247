@@ -1,32 +1,27 @@
-
 function initEditor() {
     tinymce.remove();
     tinymce.init({
         selector: '.editor',
-        valid_elements: '*[*]', // cho phép mọi thẻ + attribute
-        extended_valid_elements: 'i[class|style|aria-hidden]',
-        plugins: 'image code autoresize table lists',
-        toolbar: 'code| undo redo | link image | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | table ',
+        plugins: 'link image code autoresize table lists',
+        toolbar: 'blocks | code | undo redo | link image | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | table',
         min_height: 300,
         placeholder: 'Nhập nội dung bài viết',
         resize: true,
         forced_root_block: 'p',
-        newline_behavior: '',
         autoresize_bottom_margin: 100,
         menu: {
-            file: { title: 'File', items: 'newdocument restoredraft | preview | importword exportpdf exportword | print | deleteallconversations' },
-            edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
-            view: { title: 'View', items: 'code revisionhistory | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
-            insert: { title: 'Insert', items: 'image link media addcomment pageembed codesample inserttable | math | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
-            format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
-            tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | a11ycheck code wordcount' },
-            table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' },
+            file: { title: 'File', items: 'newdocument restoredraft | preview | print' },
+            edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+            view: { title: 'View', items: 'code | visualaid visualchars visualblocks | preview fullscreen' },
+            insert: { title: 'Insert', items: 'image link media inserttable hr' },
+            format: { title: 'Format', items: 'blocks | bold italic underline strikethrough | forecolor backcolor | removeformat' },
+            tools: { title: 'Tools', items: 'code wordcount' },
+            table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
             help: { title: 'Help', items: 'help' }
         },
+        block_formats: 'Đoạn văn=p; Tiêu đề 1=h1; Tiêu đề 2=h2; Tiêu đề 3=h3; Tiêu đề 4=h4; Tiêu đề 5=h5; Tiêu đề 6=h6',
         automatic_uploads: true,
         images_file_types: 'jpeg,jpg,jpe,jfi,jif,jfif,png,gif,bmp,webp',
         images_upload_url: '/api/upload',
     });
 }
-
-

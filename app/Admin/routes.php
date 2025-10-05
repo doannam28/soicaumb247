@@ -25,6 +25,5 @@ Route::group([
     $router->resource('menus', \App\Admin\Controllers\MenuController::class);
     $router->resource('pages', \App\Admin\Controllers\PageController::class);
     $router->resource('tags', \App\Admin\Controllers\TagController::class);
-    $router->get('get_kqxs', [\App\Admin\Controllers\KetquaController::class, 'get'])->name('get');
     $router->get('/', 'HomeController@index')->name('home');
 });

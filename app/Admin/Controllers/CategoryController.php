@@ -44,7 +44,8 @@ class CategoryController extends BaseAdminController
             return isset($cat->name)?$cat->name:'';
         });*/
         $grid->column('status', __('Status'))->switch();
-        $grid->column('menu', __('Menu'))->switch();
+        $grid->column('menu', __('Show trang chủ'))->switch();
+        //$grid->column('menu', __('Menu'))->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         return $grid;
@@ -79,7 +80,6 @@ class CategoryController extends BaseAdminController
      */
     protected function form()
     {
-        $uri = explode('/',Request::path());
         $cats = Category::orderBy('order','ASC')->get();
         $listdatas = array();
         foreach($cats as $k => $v){
@@ -99,17 +99,28 @@ class CategoryController extends BaseAdminController
         $form->text('name', __('Name'));
         $form->text('slug', __('Slug'));
         $form->number('order', __('Order'));
+        $form->switch('menu', __('Show trang chủ'))->default(1);
         $form->switch('status', __('Status'))->default(1);
         $form->image('icon', __('Hình ảnh icon'))->rules('image|mimes:jpeg,png,jpg,gif,svg,webp');
         $form->image('image_og', __('Og image'))->rules('image|mimes:jpeg,png,jpg,gif,svg,webp');
+        $form->text('title_web', __('Title website'));
         $form->textarea('meta_description', __('Meta description'));
         //$form->switch('menu', __('Menu'))->default(0);
        /* $form->select('parent_id', __('Parent'))
             ->options($options);*/
         $form->tinyEditor('content', __('Nôi dung'));
-        $form->saving(function (Form $form) {
-            if(empty($form->slug)){
-                $form->slug = Utility::slug($form->name, 'category');
+        $form->saving(function (\Encore\Admin\Form $form) {
+            $request = Request::all();
+            if(!isset($request["_edit_inline"]) && !empty($form->name)) {
+                if (empty(trim(strip_tags($form->slug)))) {
+                    $form->slug = Utility::slug(trim(strip_tags($form->name)), "category", $form->model()->id);
+                } else {
+                    $count = Category::where('slug', $form->slug)->where('id', '<>', $form->model()->id)->count();
+                    if ($count) {
+                        $form->slug = Utility::slug(trim(strip_tags($form->name)), "category");
+                    }
+                }
+
             }
         });
         return $form;

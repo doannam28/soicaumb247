@@ -25,7 +25,7 @@ class KeysController extends BaseAdminController
     protected function grid()
     {
         $grid = new Grid(new Keys());
-
+        $grid->model()->orderBy('date', 'desc');
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('date', __('Date'));

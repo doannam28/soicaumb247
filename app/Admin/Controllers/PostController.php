@@ -46,10 +46,11 @@ class PostController extends BaseAdminController
 
         $grid->column('id', __('Id'));
         $grid->column('title', __('Tiêu đề'));
-        $grid->column('thumbnail', __('Hình ảnh'))->display(function ($thumbnail) {
+        $grid->column('slug', __('Link'));
+        /*$grid->column('thumbnail', __('Hình ảnh'))->display(function ($thumbnail) {
             if (!$thumbnail) return '';
             return "<img src='".Storage::disk('admin')->url($thumbnail)."' style='max-width: 100px; max-height: 100px;'>";
-        });
+        });*/
         $grid->column('parent_id', __('Danh mục'))->display(function(){
             $cat = Category::where('id',$this->parent_id)->first();
             return isset($cat->name)?$cat->name:'';
@@ -133,7 +134,7 @@ class PostController extends BaseAdminController
         $form->tinyEditor('content', __('Nôi dung'));
         // Multiple Select tags
 
-
+        $form->text('title_web', __('Title website'));
         $form->textarea('meta', __('Meta description'));
         $form->switch('status', __('Trạng thái'))->default(1);
         $form->switch('hot', __('Tin hot'))->default(10);

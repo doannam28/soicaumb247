@@ -10,6 +10,7 @@ use App\Models\Number;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Settings;
+use App\Models\Soicau;
 use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -68,12 +69,13 @@ class HomeController extends Controller
             $mang_duoi[intval(substr($row['duoi'],1,1))][]=$row->duoi;
         }
         $title = $this->formatDateVietnamese($date);
-        $cats = Category::where('status', 1)
+        $cats = Category::where('status', 1)->where('menu', 1)
             ->orderBy('order', 'ASC')
             ->with(['posts' => function ($query) {
                 $query->orderBy('created_at', 'desc')->take(6);
             }])
             ->get();
+        $soicau = Soicau::where('status',1)->orderBy('id','desc')->first();
         return view('homes.index', [
             'title_soicau' => 'Soi Cầu Miền Bắc '.$title,
             'title' => $title,
@@ -82,6 +84,7 @@ class HomeController extends Controller
             'dau' => $mang_dau,
             'cats' => $cats,
             'duoi' => $mang_duoi,
+            'soicau' => $soicau,
         ]);
     }
     public function category($slug='')
@@ -97,11 +100,10 @@ class HomeController extends Controller
     {
         $cat = Tag::where('slug', $slug)->firstOrFail();
 
-        $posts = $cat->posts()
+        $posts = $cat->posts()->with('category')
             ->orderBy('position', 'ASC')
             ->orderBy('updated_at', 'DESC')
             ->paginate(10); // phân trang 10 bài / trang
-
         return view('homes.tag', [
             'cat' => $cat,
             'posts' => $posts,
@@ -114,10 +116,21 @@ class HomeController extends Controller
             'cat' => $cat,
         ]);
     }
-    public function detail($slug='')
+    public function noiquy()
     {
-        $post = Post::where('slug', $slug)->with('tags')->firstOrFail();
-        $cat = Category::where('id', $post->parent_id)->firstOrFail();
+        $title = 'Nội quy và điều khoản';
+        return view('homes.noiquy', [
+            'title' => $title,
+        ]);
+    }
+    public function detail($slug='',$slug1='')
+    {
+        $post = Post::where('slug', $slug1)->with('tags')->firstOrFail();
+        if($slug=='bai-viet'){
+            $cat = Category::where('id', $post->parent_id)->firstOrFail();
+        }else{
+            $cat = Category::where('slug', $slug)->firstOrFail();
+        }
         $posts = Post::where('parent_id',$post->parent_id)->where('id','<>',$post->id)->orderBy('position','ASC')->orderBy('updated_at','DESC')->limit(5)->get();
         return view('homes.detail', [
             'cat' => $cat,

@@ -21,6 +21,15 @@ const Soicaumb247 = {
         $('input,textarea').change(function () {
             $(this).val(Soicaumb247.strip_tags($(this).val()));
         });
+        $('#section_banglotop').on('click','#fetch-data-btn',function(){
+            if($(this).attr('data')==1){
+                $(this).html('Xem đầy đủ');
+                $(this).attr('data',0);
+            }else{
+                $(this).html('Thu gọn');
+                $(this).attr('data',1);
+            }
+        });
     },
 };
 jQuery(document).ready(function(){

@@ -82,7 +82,7 @@ class SettingsController extends AdminController
         $form->text('phone', __('Zalo'));
         $form->text('telegram', __('Telegram'));
         $form->text('email', __('Email'));
-        $form->text('email_receive', __('Email nhận liên hệ'));
+        //$form->text('email_receive', __('Email nhận liên hệ'));
         $form->image('logo', __('Banner'));
         $form->image('favicon', __('Favicon'));
         $form->image('image_og', __('Ảnh show trên social'));
@@ -96,17 +96,17 @@ class SettingsController extends AdminController
         $form->text('meta_description', __('Meta description'));
         $form->hidden('content', __('Content'));
         //$form->image('img_soicau', __('Img soi cầu'));
-        $form->tinyEditor('soicau', __('Soi cầu 1'))->default($content->soicau ?? "");
-        $form->tinyEditor('soicau1', __('Soi cầu 2'))->default($content->soicau1 ?? "");
+        $form->tinyEditor('soicau', __('Nội quy và điều khoản'))->default($content->soicau ?? "");
+        //$form->tinyEditor('soicau1', __('Soi cầu 2'))->default($content->soicau1 ?? "");
         $form->tinyEditor('text_run', __('Text chạy'))->default($content->text_run ?? "");
         $form->submitted(function (Form $form) {
             $content = [];
             $content['soicau'] = Request::input('soicau');
-            $content['soicau1'] = Request::input('soicau1');
+            //$content['soicau1'] = Request::input('soicau1');
             $content['text_run'] = Request::input('text_run');
             $form->content = json_encode($content);
             $form->ignore('soicau');
-            $form->ignore('soicau1');
+            //$form->ignore('soicau1');
             $form->ignore('text_run');
         });
         return $form;

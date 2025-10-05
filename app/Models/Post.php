@@ -16,9 +16,9 @@ class Post extends BaseModel
         'slug',
     ];
 
-    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class, 'parent_id');
     }
     public function tags()
     {

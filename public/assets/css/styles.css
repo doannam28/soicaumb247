@@ -683,3 +683,11 @@ a.page-link{
 #form-ketqua{
     margin-bottom: 20px;
 }
+@media only screen and (max-width: 48em) {
+    #menu {
+        overflow: auto !important;
+        white-space: nowrap;
+        display: flex;
+        max-height: 100%;
+    }
+}

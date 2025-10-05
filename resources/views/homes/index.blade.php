@@ -24,12 +24,12 @@
         <div class="d-flex d-soicau">
             <img src="{{Storage::disk('admin')->url($setting->img_soicau)}}" alt="soi cầu loto">
             <div>
-                {!! $content->soicau !!}
+                {!! $soicau->content !!}
             </div>
         </div>
         <div class="d-flex d-soicau justify-content-end">
             <div>
-                {!! $content->soicau1 !!}
+                {!! $soicau->content1 !!}
             </div>
             <img src="{{Storage::disk('admin')->url($setting->img_soicau)}}" alt="soi cầu loto">
         </div>
@@ -213,7 +213,7 @@
                     }
                 </style>
                 <div class="contentbox"><div class="contentbox_header"><div style="color:#3E3E3E">Bảng lô top ngày 01/10/2025</div></div><div class="contentbox_body"><div><div class="trendholder" rel="2025-10-01"><span class="top2-trend top2-34">81</span><span class="top2-trend top2-34">82</span><span class="top2-trend top2-34">76</span><span class="top2-trend top2-31">88</span><span class="top2-trend top2-31">96</span><span class="top2-trend top2-31">68</span><span class="top2-trend top2-31">73</span><span class="top2-trend top2-31">10</span><span class="top2-trend top2-31">18</span><span class="top2-trend top2-31">28</span><span class="top2-trend top2-31">89</span><span class="top2-trend top2-31">46</span><span class="top2-trend top2-31">57</span><span class="top2-trend top2-28">94</span><span class="top2-trend top2-28">01</span><span class="top2-trend top2-28">09</span><span class="top2-trend top2-28">37</span><span class="top2-trend top2-28">45</span><span class="top2-trend top2-28">80</span><span class="top2-trend top2-28">39</span></div></div><div style="clear:both"></div></div></div></div>
-            <button id="fetch-data-btn">Xem đầy đủ</button>
+            <button id="fetch-data-btn" data="0">Xem đầy đủ</button>
             <p class="note-toplo" style="text-align: justify;"><b>Bảng Lô Top</b> là nơi thống kê kết quả dự đoán loto có khả năng về nhiều nhất được sắp xếp từ cao xuống thấp trong hôm nay nhằm mục đích tham khảo.</p>
             <script type="text/javascript">
                 let useTrendLimit = false; // Biến để theo dõi trạng thái sử dụng trend limit
@@ -282,7 +282,7 @@
                 <div class="list1">
                     <?php if(isset($row->icon) && $row->icon!='')?>
                     <img src="{{Storage::disk('admin')->url($row->icon)}}" alt="dự đoán xsmb 247" width="20" height="20">&nbsp;
-                    <a href="chi-tiet/{{$post->slug}}" title="{{$post->title}}">{{$post->title}}
+                    <a href="/{{$row->slug}}/{{$post->slug}}" title="{{$post->title}}">{{$post->title}}
                        <?php if($post->hot == 1) {?>
                         <img src="assets/images/HOT.gif">
                         <?php } ?>

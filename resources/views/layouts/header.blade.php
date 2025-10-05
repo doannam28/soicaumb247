@@ -31,7 +31,7 @@
             <?php $pages = \App\Helpers\Utility::getPages();
             foreach ($pages as $row){
                 ?>
-            <li><a href="/{{$row->slug}}" class="active" style="color:#0066FF;">{{$row->name}}</a> <img src="/assets/images/hot2.gif" alt="{{$row->name}}"></li>
+            <li><a href="/du-doan-xo-so-{{$row->slug}}" class="active" style="color:#0066FF;">{{$row->name}}</a> <img src="/assets/images/hot2.gif" alt="{{$row->name}}"></li>
            <?php } ?>
         </ol>
     </div>
