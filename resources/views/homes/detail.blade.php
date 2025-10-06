@@ -4,10 +4,10 @@
     $content = isset($setting->content) ? json_decode($setting->content) : '';
     ?>
     <title>{{$post->title_web}}</title>
-    <meta name="description" content="{{$post->meta_description}}">
+    <meta name="description" content="{{$post->meta}}">
     <meta property="og:title" content="{{$post->title_web}}">
     <meta name="keywords" content="{{$post->title_web}}">
-    <meta property="og:description" content="{{$post->meta_description}}">
+    <meta property="og:description" content="{{$post->meta}}">
     <meta property="og:type" content="article">
     <meta property="og:image" content="{{Storage::disk('admin')->url($post->thumbnail)}}"/>
 @endsection

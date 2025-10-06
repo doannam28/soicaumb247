@@ -72,7 +72,7 @@ class HomeController extends Controller
         $cats = Category::where('status', 1)->where('menu', 1)
             ->orderBy('order', 'ASC')
             ->with(['posts' => function ($query) {
-                $query->orderBy('created_at', 'desc')->take(6);
+                $query->where('status',1)->orderBy('created_at', 'desc')->take(6);
             }])
             ->get();
         $soicau = Soicau::where('status',1)->orderBy('id','desc')->first();
@@ -90,7 +90,7 @@ class HomeController extends Controller
     public function category($slug='')
     {
         $cat = Category::where('slug', $slug)->firstOrFail();
-        $posts = Post::where('parent_id',$cat->id)->orderBy('position','ASC')->orderBy('updated_at','DESC')->paginate(10);
+        $posts = Post::where('parent_id',$cat->id)->where('status',1)->orderBy('position','ASC')->orderBy('updated_at','DESC')->paginate(10);
         return view('homes.category', [
             'cat' => $cat,
             'posts' => $posts,
@@ -100,7 +100,7 @@ class HomeController extends Controller
     {
         $cat = Tag::where('slug', $slug)->firstOrFail();
 
-        $posts = $cat->posts()->with('category')
+        $posts = $cat->posts()->where('status',1)->with('category')
             ->orderBy('position', 'ASC')
             ->orderBy('updated_at', 'DESC')
             ->paginate(10); // phân trang 10 bài / trang
@@ -131,7 +131,7 @@ class HomeController extends Controller
         }else{
             $cat = Category::where('slug', $slug)->firstOrFail();
         }
-        $posts = Post::where('parent_id',$post->parent_id)->where('id','<>',$post->id)->orderBy('position','ASC')->orderBy('updated_at','DESC')->limit(5)->get();
+        $posts = Post::where('parent_id',$post->parent_id)->where('id','<>',$post->id)->where('status',1)->orderBy('position','ASC')->orderBy('updated_at','DESC')->limit(5)->get();
         return view('homes.detail', [
             'cat' => $cat,
             'post' => $post,

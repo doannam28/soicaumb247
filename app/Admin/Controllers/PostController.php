@@ -47,7 +47,7 @@ class PostController extends BaseAdminController
         $grid->column('id', __('Id'));
         $grid->column('title', __('Tiêu đề'));
         $grid->column('slug', __('Link'));
-        /*$grid->column('thumbnail', __('Hình ảnh'))->display(function ($thumbnail) {
+        /*$grid->column('thumbnail', __('Og image'))->display(function ($thumbnail) {
             if (!$thumbnail) return '';
             return "<img src='".Storage::disk('admin')->url($thumbnail)."' style='max-width: 100px; max-height: 100px;'>";
         });*/
@@ -124,12 +124,12 @@ class PostController extends BaseAdminController
         }
         $form->select('parent_id', __('Danh mục'))
             ->options($options);
-        $form->image('thumbnail', __('Hình ảnh đại diện'))->rules('image|mimes:jpeg,png,jpg,gif,svg')
+        $form->image('thumbnail', __('Og image'))->rules('image|mimes:jpeg,png,jpg,gif,svg')
             //->help('<b style="color:red">(Nên upload ảnh có độ phân giải 1440x960)</b>')
             ->name(function ($file) {
                 return \App\Files\Storage::getFileName($file);
             });
-        $form->multipleSelect('tags', 'Tags')
+        $form->multipleSelect('tags', 'Từ khóa')
             ->options(Tag::pluck('name', 'id')->toArray());
         $form->tinyEditor('content', __('Nôi dung'));
         // Multiple Select tags
