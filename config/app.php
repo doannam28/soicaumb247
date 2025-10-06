@@ -136,5 +136,8 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
+    'aliases' => [
+        // các alias khác...
+        'Sitemap' => Laravelium\Sitemap\Facades\Sitemap::class,
+    ],
 ];

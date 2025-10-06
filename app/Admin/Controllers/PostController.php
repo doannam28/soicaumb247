@@ -41,6 +41,9 @@ class PostController extends BaseAdminController
         $grid->filter(function ($filter) {
             $filter->disableIdFilter();
             $filter->like('title', __('Tiêu đề'));
+            $filter->equal('parent_id', __('Danh mục'))->select(
+                Category::pluck('name', 'id')
+            );
             $filter->equal('status', __('Trạng thái'))->select([1 => 'Kích hoạt', 0 => 'Không kích hoạt']);
         });
 

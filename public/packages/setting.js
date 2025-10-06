@@ -5,6 +5,7 @@ function initEditor() {
         plugins: 'link image code autoresize table lists',
         toolbar: 'blocks | code | undo redo | link image | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | table',
         min_height: 300,
+        max_height: 400,
         placeholder: 'Nhập nội dung bài viết',
         resize: true,
         forced_root_block: 'p',
@@ -21,6 +22,9 @@ function initEditor() {
         },
         block_formats: 'Đoạn văn=p; Tiêu đề 1=h1; Tiêu đề 2=h2; Tiêu đề 3=h3; Tiêu đề 4=h4; Tiêu đề 5=h5; Tiêu đề 6=h6',
         automatic_uploads: true,
+        document_base_url: '/',
+        relative_urls: false,        // giữ nguyên dấu / ở đầu
+        remove_script_host: true,    // KHÔNG thêm domain
         images_file_types: 'jpeg,jpg,jpe,jfi,jif,jfif,png,gif,bmp,webp',
         images_upload_url: '/api/upload',
     });

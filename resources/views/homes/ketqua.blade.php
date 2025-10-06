@@ -167,7 +167,7 @@
                             <?php for($i=0;$i<10;$i++) {?>
                             <tr>
                                 <td class="number_dau_duoi">{{$i}}</td>
-                                <td class="waiting">{{(isset($dau[$i]) && count($dau[$i])>0) ? implode(" ; ", $dau[$i]): '**'}}</td>
+                                <td class="waiting">{{(isset($dau[$i]) && count($dau[$i])>0) ? implode(" ; ", $dau[$i]): ''}}</td>
                             </tr>
                             <?php } ?>
                             </tbody>
@@ -187,7 +187,7 @@
                             <?php for($i=0;$i<10;$i++) {?>
                                 <tr>
                                     <td class="number_dau_duoi">{{$i}}</td>
-                                    <td class="waiting">{{(isset($duoi[$i]) && count($duoi[$i])>0) ? implode(" ; ", $duoi[$i]): '**'}}</td>
+                                    <td class="waiting">{{(isset($duoi[$i]) && count($duoi[$i])>0) ? implode(" ; ", $duoi[$i]): ''}}</td>
                                 </tr>
                             <?php } ?>
                             </tbody>

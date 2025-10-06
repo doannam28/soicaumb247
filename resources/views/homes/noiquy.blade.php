@@ -2,17 +2,14 @@
 @section('meta')
     <?php use App\Helpers\Utility;$setting = Utility::setting();
     $content = isset($setting->content) ? json_decode($setting->content) : '';
-    echo "<pre>";
-    print_r($content);
-    echo "</pre>";die;
     ?>
-    <title>{{$cat->name}}</title>
-    <meta name="description" content="{{$cat->meta_description}}">
-    <meta property="og:title" content="{{$cat->name}}">
-    <meta name="keywords" content="{{$cat->name}}">
-    <meta property="og:description" content="{{$cat->meta_description}}">
+    <title>{{$title}}</title>
+    <meta name="description" content="{{$setting->meta_description}}">
+    <meta property="og:title" content="{{$setting->site_title}}">
+    <meta name="keywords" content="{{$setting->site_title}}">
+    <meta property="og:description" content="{{$setting->meta_description}}">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="{{Storage::disk('admin')->url($cat->image_og)}}"/>
+    <meta property="og:image" content="{{Storage::disk('admin')->url($setting->image_og)}}"/>
 @endsection
 @section('content')
     <section id="body-content">

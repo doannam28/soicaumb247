@@ -9,19 +9,24 @@ use Illuminate\View\View;
 class TinyEditor extends Field
 {
     public static $js = [
-        '/packages/tinymce/tinymce.min.js',
-        '/packages/setting.js'
+        '/packages/tinymce/tinymce.min.js'
     ];
 
 
     protected $view = 'admin.ckeditor';
 
     public function render(): Factory|string|View
-    {
-        $this->script = <<<EOT
-            initEditor()
-         EOT;
+{
+    $version = filemtime(public_path('packages/setting.js'));
 
-        return parent::render();
+    $this->script = <<<EOT
+$.getScript('/packages/setting.js?v={$version}', function() {
+    if (typeof initEditor === 'function') {
+        initEditor();
     }
+});
+EOT;
+
+return parent::render();
+}
 }

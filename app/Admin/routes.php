@@ -4,6 +4,7 @@ use App\Admin\Controllers\PostController;
 use App\Admin\Controllers\SettingsController;
 use App\Admin\Controllers\TaxonomyController;
 use App\Admin\Controllers\TaxonomyItemController;
+use Encore\Admin\Facades\Admin;
 use Illuminate\Routing\Router;
 
 Admin::routes();

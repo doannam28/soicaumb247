@@ -10,10 +10,14 @@
     <meta property="og:description" content="{{$setting->meta_description}}">
     <meta property="og:type" content="article">
     <meta property="og:image" content="{{Storage::disk('admin')->url($setting->image_og)}}"/>
+    <meta name="twitter:card" content="Nuôi lô 66, nuôi lô 247, nuôi lô khung 247 miền bắc"/>
+    <meta name="twitter:site" content="Nuôi lô 66"/>
+    <meta name="twitter:title" content="Nuôi lô 66, nuôi lô 247, nuôi lô khung 247 miền bắc"/>
+    <meta name="twitter:description" content="{{$setting->meta_description}}"/>
 @endsection
 @section('content')
     <section id="body-content">
-        <div class="khungvien"><h1><span class="chukhungvien">Soi Cầu MB 247 Chính Xác Nhất</span></h1></div>
+        <div class="khungvien"><h1><span class="chukhungvien">Nuôi lô khung 247 Chính Xác Nhất</span></h1></div>
         <div class="list1">
             {!! $setting->text1 !!}
         </div>
@@ -170,7 +174,7 @@
                             <?php for($i=0;$i<10;$i++) {?>
                             <tr>
                                 <td class="number_dau_duoi">{{$i}}</td>
-                                <td class="waiting">{{(isset($dau[$i]) && count($dau[$i])>0) ? implode(" ; ", $dau[$i]): '**'}}</td>
+                                <td class="waiting">{{(isset($dau[$i]) && count($dau[$i])>0) ? implode(" ; ", $dau[$i]): ''}}</td>
                             </tr>
                             <?php } ?>
                             </tbody>
@@ -190,7 +194,7 @@
                             <?php for($i=0;$i<10;$i++) {?>
                                 <tr>
                                     <td class="number_dau_duoi">{{$i}}</td>
-                                    <td class="waiting">{{(isset($duoi[$i]) && count($duoi[$i])>0) ? implode(" ; ", $duoi[$i]): '**'}}</td>
+                                    <td class="waiting">{{(isset($duoi[$i]) && count($duoi[$i])>0) ? implode(" ; ", $duoi[$i]): ''}}</td>
                                 </tr>
                             <?php } ?>
                             </tbody>
