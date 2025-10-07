@@ -70,7 +70,7 @@ class SitemapController extends Controller
 
         if ($idx == 0) {
             // Trang /du-doan-xo-so
-            $xml .= $this->urlTag("{$baseUrl}/du-doan-xo-so", $now, 'daily', '1.0');
+            //$xml .= $this->urlTag("{$baseUrl}/du-doan-xo-so", $now, 'daily', '1.0');
 
             // Các trang Page
             $pages = Page::where('status', 1)->get();
