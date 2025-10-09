@@ -79,7 +79,7 @@ class KetquaController extends BaseAdminController
         $cat_id=13;
         $obj = new Number();
         $count = $obj->where('date',$date)->where('cat_id',$cat_id)->where('page', '<>', 'xskt.com.vn')->count();
-        $obj1 = $obj->where('date',$date)->where('cat_id',$cat_id)->where('page', '<>', 'xskt.com.vn')->first();
+        $obj1 = $obj->where('date',$date)->where('cat_id',$cat_id)->where('giai',0)->where('page','<>','xskt.com.vn')->first();
         if($count<27 || (isset($obj1->number) && $obj1->number=='*') || !isset($obj1->number)) {
             $html = $this->get_data( $this->domain.'xo-so-mien-bac?ngay=' . $date1);
             $objHtml = str_get_html($html);
